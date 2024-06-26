@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="title-bar">
+    <span>My Electron App</span>
+    <div class="toolbar-btns">
+        <div id="minimize" class="toolbar-btn"></div>
+        <div id="maximize" class="toolbar-btn"></div>
+        <div id="close" class="toolbar-btn"></div>
+    </div>
+</div>
+<h1>Hello World!</h1>
+<p>
+    hi
+</p>
+<script>
+	document.getElementById('minimize').addEventListener('click', () => {
+		window.electron.minimizeWindow();
+	});
+
+	document.getElementById('maximize').addEventListener('click', () => {
+		window.electron.maximizeWindow();
+	});
+
+	document.getElementById('close').addEventListener('click', () => {
+		window.electron.closeWindow();
+	});
+</script>
+</body>
+</html>

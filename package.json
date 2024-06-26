@@ -1,0 +1,17 @@
+{
+  "name": "converta-ui",
+  "version": "0.0.1",
+  "description": "desktop app for convert any file to any format",
+  "main": "src/main.js",
+  "author": "Shukaaa",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.1.0"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@electron/remote": "^2.1.2"
+  }
+}

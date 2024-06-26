@@ -1,0 +1,49 @@
+:root {
+    --bg-color: #333;
+    --text-color: #fff;
+    --border-color: #666;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 15px;
+}
+
+#title-bar {
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1em;
+    background-color: var(--border-color);
+}
+
+.toolbar-btn {
+    width: 20px;
+    height: 10px;
+    cursor: pointer;
+    border-radius: 1em;
+}
+
+.toolbar-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2em 1em;
+}
+
+#minimize {
+    background-color: #ffcc00;
+}
+
+#maximize {
+    background-color: #00cc00;
+}
+
+#close {
+    background-color: #ff3333;
+}
