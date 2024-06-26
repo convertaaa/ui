@@ -3,14 +3,14 @@ const path = require('path');
 
 const createWindow = () => {
 	const mainWindow = new BrowserWindow({
-		width: 800,
+		width: 900,
 		height: 600,
 		frame: false,
 		transparent: true,
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 			contextIsolation: true,
-			enableRemoteModule: false, // Ensure this is set to false
+			enableRemoteModule: false,
 		},
 		icon: path.join(__dirname, 'assets', 'converta-light.png'),
 	});

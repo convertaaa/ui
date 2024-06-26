@@ -1,7 +1,11 @@
 :root {
-    --bg-color: #333;
+    --bg-color: #2f2b2b;
     --text-color: #fff;
-    --border-color: #666;
+    --border-color: #38333d;
+
+    --btn-minimize: #d5b431;
+    --btn-maximize: #2eba2e;
+    --btn-close: #ba3030;
 }
 
 body {
@@ -11,6 +15,14 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     border-radius: 15px;
+}
+
+.title {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0.5em 0;
+    letter-spacing: 0.1em;
+    font-weight: 400;
 }
 
 #title-bar {
@@ -27,6 +39,8 @@ body {
     height: 10px;
     cursor: pointer;
     border-radius: 1em;
+
+    transition: box-shadow 0.2s;
 }
 
 .toolbar-btns {
@@ -37,13 +51,28 @@ body {
 }
 
 #minimize {
-    background-color: #ffcc00;
+    background-color: var(--btn-minimize);
+    box-shadow: 0 0 2px var(--btn-minimize);
+}
+
+#minimize:hover {
+    box-shadow: 0 0 5px #ffdd00;
 }
 
 #maximize {
-    background-color: #00cc00;
+    background-color: var(--btn-maximize);
+    box-shadow: 0 0 2px var(--btn-maximize);
+}
+
+#maximize:hover {
+    box-shadow: 0 0 5px #00ff00;
 }
 
 #close {
-    background-color: #ff3333;
+    background-color: var(--btn-close);
+    box-shadow: 0 0 2px var(--btn-close);
+}
+
+#close:hover {
+    box-shadow: 0 0 5px #ff0000;
 }
