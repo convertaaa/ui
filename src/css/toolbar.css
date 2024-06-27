@@ -1,0 +1,115 @@
+#title-bar {
+    height: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1em;
+    background-color: var(--border-color);
+    -webkit-app-region: drag;
+}
+
+/* Title: Toolbar */
+
+.title {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0.5em 0;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+}
+
+/* Navbar */
+
+nav {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    -webkit-app-region: no-drag;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1em;
+    height: 100%;
+}
+
+li {
+    display: inline;
+}
+
+.chip {
+    background-color: var(--chip-color);
+    padding: 0.5em 1em;
+    border-radius: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    user-select: none;
+}
+
+.chip:hover {
+    background-color: var(--chip-color-hover);
+}
+
+/* Buttons */
+
+.toolbar-btn {
+    width: 20px;
+    height: 10px;
+    cursor: pointer;
+    border-radius: 1em;
+
+    transition: box-shadow 0.2s;
+}
+
+.toolbar-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2em 1em;
+    -webkit-app-region: no-drag;
+}
+
+#minimize {
+    background-color: var(--btn-minimize);
+    box-shadow: 0 0 2px var(--btn-minimize);
+}
+
+#minimize:hover {
+    box-shadow: 0 0 5px #ffdd00;
+}
+
+#maximize {
+    background-color: var(--btn-maximize);
+    box-shadow: 0 0 2px var(--btn-maximize);
+}
+
+#maximize:hover {
+    box-shadow: 0 0 5px #00ff00;
+}
+
+#close {
+    background-color: var(--btn-close);
+    box-shadow: 0 0 2px var(--btn-close);
+}
+
+#close:hover {
+    box-shadow: 0 0 5px #ff0000;
+}
+
+/* Misc */
+
+.horizontal-divider-light {
+    width: 2px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--border-color-lighter);
+}

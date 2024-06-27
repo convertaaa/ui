@@ -3,8 +3,8 @@ const path = require('path');
 
 const createWindow = () => {
 	const mainWindow = new BrowserWindow({
-		width: 900,
-		height: 600,
+		width: 1300,
+		height: 800,
 		frame: false,
 		transparent: true,
 		webPreferences: {
@@ -19,7 +19,7 @@ const createWindow = () => {
 		console.error('Failed to load index.html:', err);
 	});
 
-	mainWindow.webContents.openDevTools();
+	//mainWindow.webContents.openDevTools();
 	mainWindow.setResizable(true);
 	mainWindow.setMenuBarVisibility(false);
 	mainWindow.on('closed', () => {
