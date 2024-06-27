@@ -21,5 +21,10 @@
     "start": "grunt",
     "build": "grunt build",
     "package": "grunt package"
+  },
+  "dependencies": {
+    "@converta/api": "^0.0.4",
+    "fs-extra": "^11.2.0",
+    "path": "^0.12.7"
   }
 }

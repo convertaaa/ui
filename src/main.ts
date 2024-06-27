@@ -1,5 +1,6 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import path = require('path');
+import {ConverterLoadingUtils} from "./utils/converter-loading.utils";
 
 const createWindow = () => {
 	const mainWindow = new BrowserWindow({
@@ -13,12 +14,13 @@ const createWindow = () => {
 		},
 		icon: path.join(__dirname, 'assets', 'converta-light.png'),
 	});
+	
+	mainWindow.webContents.openDevTools();
 
 	mainWindow.loadFile(path.join(__dirname, 'index.html')).catch((err) => {
 		console.error('Failed to load index.html:', err);
 	});
-
-	//mainWindow.webContents.openDevTools();
+	
 	mainWindow.setResizable(true);
 	mainWindow.setMenuBarVisibility(false);
 	mainWindow.on('closed', () => {
@@ -39,6 +41,14 @@ const createWindow = () => {
 
 	ipcMain.on('close-window', () => {
 		mainWindow.close();
+	});
+	
+	ipcMain.on('testing', () => {
+		ConverterLoadingUtils.findAllDownloadableConverterPackages().then(r => console.log(r));
+	});
+	
+	ipcMain.handle('get-downloadable-converter-packages', async () => {
+		return await ConverterLoadingUtils.findAllDownloadableConverterPackages();
 	});
 };
 
