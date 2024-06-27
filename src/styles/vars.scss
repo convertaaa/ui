@@ -9,3 +9,8 @@ $chip-color-hover: #5c575f;
 $btn-minimize: #d5b431;
 $btn-maximize: #2eba2e;
 $btn-close: #ba3030;
+$btns: (
+    minimize: $btn-minimize,
+    maximize: $btn-maximize,
+    close: $btn-close
+);

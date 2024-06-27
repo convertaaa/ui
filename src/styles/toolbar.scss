@@ -1,7 +1,5 @@
 @import "vars";
 
-// Styles
-
 #title-bar {
     height: 45px;
     display: flex;
@@ -59,6 +57,10 @@ li {
     &:hover {
         background-color: $chip-color-hover;
     }
+
+    &:active {
+        background-color: $chip-color;
+    }
 }
 
 /* Buttons */
@@ -79,32 +81,20 @@ li {
     -webkit-app-region: no-drag;
 }
 
-#minimize {
-    background-color: $btn-minimize;
-    box-shadow: 0 0 2px $btn-minimize;
+@mixin btn($btn-name) {
+    ##{$btn-name} {
+        background-color: map-get($btns, $btn-name);
+        box-shadow: 0 0 2px map-get($btns, $btn-name);
 
-    &:hover {
-        box-shadow: 0 0 5px #ffdd00;
+        &:hover {
+            box-shadow: 0 0 5px map-get($btns, $btn-name);
+        }
     }
 }
 
-#maximize {
-    background-color: $btn-maximize;
-    box-shadow: 0 0 2px $btn-maximize;
-
-    &:hover {
-        box-shadow: 0 0 5px #00ff00;
-    }
-}
-
-#close {
-    background-color: $btn-close;
-    box-shadow: 0 0 2px $btn-close;
-
-    &:hover {
-        box-shadow: 0 0 5px #ff0000;
-    }
-}
+@include btn("minimize");
+@include btn("maximize");
+@include btn("close");
 
 /* Misc */
 

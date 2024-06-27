@@ -14,7 +14,7 @@ const createWindow = () => {
 		icon: path.join(__dirname, 'assets', 'converta-light.png'),
 	});
 
-	mainWindow.loadFile(path.join(__dirname, 'views/index.html')).catch((err) => {
+	mainWindow.loadFile(path.join(__dirname, 'index.html')).catch((err) => {
 		console.error('Failed to load index.html:', err);
 	});
 

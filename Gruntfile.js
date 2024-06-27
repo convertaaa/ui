@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             main: {
                 files: [
                     {expand: true, cwd: 'src/', src: ['assets/**.**'], dest: 'dist/'},
-                    {expand: true, cwd: 'src/', src: ['views/**.**'], dest: 'dist/'}
+                    {expand: true, cwd: 'src/', src: ['index.html'], dest: 'dist/'}
                 ]
             }
         },

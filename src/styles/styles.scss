@@ -1,5 +1,6 @@
 @import "vars";
 @import "toolbar";
+@import "tooltip";
 
 body {
     margin: 0;
@@ -15,4 +16,16 @@ body {
 .wrapper {
     width: 70%;
     margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding: 1em;
+    border-bottom: 2px solid $border-color-lighter;
+}
+
+::selection {
+    background-color: lighten($border-color, 20%);
+    color: $text-color;
 }
