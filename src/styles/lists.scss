@@ -8,18 +8,29 @@ li {
   display: inline;
 }
 
-.download-packages-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 -10px;
+.packages-list {
+  padding-bottom: 2em;
 }
 
-.download-packages-list-item {
+.packages-list-item {
   display: flex;
   justify-content: space-between;
+  padding: 1em;
+  border-radius: 1em;
+  background: rgb(0, 0, 0, 0.1);
+  margin-bottom: 1em;
 
   & > button {
     margin: 1.5em 0;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  & > * {
+    margin: 0;
   }
 }

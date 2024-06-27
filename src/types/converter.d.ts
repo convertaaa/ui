@@ -1,16 +1,12 @@
 import {Converter} from "@converta/api";
 
-export type ConverterPackage = {
+export type InstalledConverterPackage = {
 	name: string,
 	author: string,
 	description: string,
 	version: string,
-	converters: LocalConverter[],
-}
-
-export type LocalConverter = {
-	converter: Converter<any, any>,
-	enabled: boolean
+	packageJsonPath: string,
+	converter: Converter<any, any>[]
 }
 
 export type UninstalledConverterPackage = {

@@ -43,7 +43,13 @@
     <section id="section-converter" style="display:none;">
         <h1>Manage Converter</h1>
         <div>
-            <ul id="download-packages-list">
+            <h2>Installed Converter</h2>
+            <ul id="installed-packages-list" class="packages-list">
+                <!-- Data gets injected here -->
+            </ul>
+            <div class="divider"></div>
+            <h2>Downloadable Converter</h2>
+            <ul id="download-packages-list" class="packages-list">
                 <!-- Data gets injected here -->
             </ul>
         </div>
@@ -56,8 +62,6 @@
     </section>
 </div>
 <script>
-	let downloadableConverterPackages = null
-
 	document.getElementById('minimize').addEventListener('click', () => {
 		window.electron.minimizeWindow();
 	});
@@ -81,39 +85,79 @@
 		document.getElementById('section-' + tab).style.display = 'block';
 
 		if (tab === 'converter') {
-			if (downloadableConverterPackages === null) {
-				downloadableConverterPackages = await window.electron.getDownloadableConverterPackages();
-			}
-
-			const downloadPackagesList = document.getElementById('download-packages-list');
-			downloadPackagesList.innerHTML = '';
-			downloadableConverterPackages.forEach((package) => {
-				const li = document.createElement('li');
-				li.classList.add('download-packages-list-item');
-
-				const textDiv = document.createElement('div');
-				textDiv.classList.add('text');
-
-				const title = document.createElement('h3');
-				title.innerText = package.name + " - " + package.version;
-				textDiv.appendChild(title);
-
-				const description = document.createElement('span');
-				description.innerText = package.description;
-				textDiv.appendChild(description);
-
-				li.appendChild(textDiv);
-
-				const downloadBtn = document.createElement('button');
-				downloadBtn.innerText = 'Download';
-				downloadBtn.onclick = () => {
-					window.electron.downloadConverterPackage(package);
-				};
-				li.appendChild(downloadBtn);
-
-				downloadPackagesList.appendChild(li);
-			});
+			await updatePackageLists();
 		}
+	}
+
+	async function updatePackageLists() {
+		await receiveInstalledPackages();
+		await receiveDownloadablePackages();
+	}
+
+	async function receiveInstalledPackages() {
+		const installedConverterPackages = await window.electron.getInstalledConverterPackages();
+		const installedPackagesList = document.getElementById('installed-packages-list');
+		installedPackagesList.innerHTML = '';
+
+		installedConverterPackages.forEach((pkg) => {
+			const uninstallBtn = document.createElement('button');
+			uninstallBtn.innerText = 'Uninstall';
+			uninstallBtn.onclick = async () => {
+				const responseSucceed = await window.electron.uninstallConverterPackage(pkg);
+
+				if (responseSucceed) {
+					alert('Uninstalled ' + pkg.name + ' - ' + pkg.version);
+					await updatePackageLists()
+				} else {
+					alert('Failed to uninstall ' + pkg.name + ' - ' + pkg.version);
+				}
+			};
+
+			appendPackageListItem(installedPackagesList, pkg, uninstallBtn);
+		});
+	}
+
+	async function receiveDownloadablePackages() {
+		const downloadableConverterPackages = await window.electron.getDownloadableConverterPackages();
+		const downloadPackagesList = document.getElementById('download-packages-list');
+		downloadPackagesList.innerHTML = '';
+
+		downloadableConverterPackages.forEach((pkg) => {
+			const downloadBtn = document.createElement('button');
+			downloadBtn.innerText = 'Download';
+			downloadBtn.onclick = async () => {
+				const responseSucceed = await window.electron.downloadConverterPackage(pkg);
+
+				if (responseSucceed) {
+					alert('Downloaded ' + pkg.name + ' - ' + pkg.version);
+					await updatePackageLists()
+				} else {
+					alert('Failed to download ' + pkg.name + ' - ' + pkg.version);
+				}
+			};
+
+			appendPackageListItem(downloadPackagesList, pkg, downloadBtn);
+		});
+	}
+
+	function appendPackageListItem(listElement, pkg, button) {
+		const li = document.createElement('li');
+		li.classList.add('packages-list-item');
+
+		const textDiv = document.createElement('div');
+		textDiv.classList.add('text');
+
+		const title = document.createElement('h3');
+		title.innerText = pkg.name + " - " + pkg.version;
+		textDiv.appendChild(title);
+
+		const description = document.createElement('span');
+		description.innerText = pkg.description;
+		textDiv.appendChild(description);
+
+		li.appendChild(textDiv);
+		li.appendChild(button);
+		listElement.appendChild(li);
 	}
 </script>
 </body>

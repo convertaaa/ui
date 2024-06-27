@@ -1,6 +1,7 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import path = require('path');
 import {ConverterLoadingUtils} from "./utils/converter-loading.utils";
+import {InstalledConverterPackage, UninstalledConverterPackage} from "./types/converter";
 
 const createWindow = () => {
 	const mainWindow = new BrowserWindow({
@@ -44,11 +45,23 @@ const createWindow = () => {
 	});
 	
 	ipcMain.on('testing', () => {
-		ConverterLoadingUtils.findAllDownloadableConverterPackages().then(r => console.log(r));
+		ConverterLoadingUtils.findAllOnlineConverterPackages().then(r => console.log(r));
 	});
 	
 	ipcMain.handle('get-downloadable-converter-packages', async () => {
-		return await ConverterLoadingUtils.findAllDownloadableConverterPackages();
+		return await ConverterLoadingUtils.findNotInstalledConverterPackages(app);
+	});
+	
+	ipcMain.handle('get-installed-converter-packages', async (event) => {
+		return ConverterLoadingUtils.findAllLocalConverterPackages(app);
+	})
+	
+	ipcMain.handle('download-converter-package', async (event, packageData: UninstalledConverterPackage) => {
+		return ConverterLoadingUtils.downloadConverterPackage(app, packageData);
+	});
+	
+	ipcMain.handle('uninstall-converter-package', async (event, packageData: InstalledConverterPackage) => {
+		return ConverterLoadingUtils.uninstallConverterPackage(app, packageData);
 	});
 };
 
