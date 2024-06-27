@@ -1,10 +1,14 @@
+@import "vars";
+
+// Styles
+
 #title-bar {
     height: 45px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5em 1em;
-    background-color: var(--border-color);
+    background-color: $border-color;
     -webkit-app-region: drag;
 }
 
@@ -33,7 +37,6 @@ ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -46,16 +49,16 @@ li {
 }
 
 .chip {
-    background-color: var(--chip-color);
+    background-color: $chip-color;
     padding: 0.5em 1em;
     border-radius: 1em;
     cursor: pointer;
     transition: background-color 0.2s;
     user-select: none;
-}
 
-.chip:hover {
-    background-color: var(--chip-color-hover);
+    &:hover {
+        background-color: $chip-color-hover;
+    }
 }
 
 /* Buttons */
@@ -65,7 +68,6 @@ li {
     height: 10px;
     cursor: pointer;
     border-radius: 1em;
-
     transition: box-shadow 0.2s;
 }
 
@@ -78,30 +80,30 @@ li {
 }
 
 #minimize {
-    background-color: var(--btn-minimize);
-    box-shadow: 0 0 2px var(--btn-minimize);
-}
+    background-color: $btn-minimize;
+    box-shadow: 0 0 2px $btn-minimize;
 
-#minimize:hover {
-    box-shadow: 0 0 5px #ffdd00;
+    &:hover {
+        box-shadow: 0 0 5px #ffdd00;
+    }
 }
 
 #maximize {
-    background-color: var(--btn-maximize);
-    box-shadow: 0 0 2px var(--btn-maximize);
-}
+    background-color: $btn-maximize;
+    box-shadow: 0 0 2px $btn-maximize;
 
-#maximize:hover {
-    box-shadow: 0 0 5px #00ff00;
+    &:hover {
+        box-shadow: 0 0 5px #00ff00;
+    }
 }
 
 #close {
-    background-color: var(--btn-close);
-    box-shadow: 0 0 2px var(--btn-close);
-}
+    background-color: $btn-close;
+    box-shadow: 0 0 2px $btn-close;
 
-#close:hover {
-    box-shadow: 0 0 5px #ff0000;
+    &:hover {
+        box-shadow: 0 0 5px #ff0000;
+    }
 }
 
 /* Misc */
@@ -111,5 +113,5 @@ li {
     height: 100%;
     padding: 0;
     margin: 0;
-    background-color: var(--border-color-lighter);
+    background-color: $border-color-lighter;
 }

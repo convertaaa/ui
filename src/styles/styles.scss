@@ -1,0 +1,18 @@
+@import "vars";
+@import "toolbar";
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-color: $bg-color;
+    color: $text-color;
+
+    height: 100dvh;
+    border: 2px solid $border-color
+}
+
+.wrapper {
+    width: 70%;
+    margin: 0 auto;
+}
