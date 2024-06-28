@@ -1,12 +1,10 @@
 import {contextBridge, ipcRenderer} from 'electron';
-import {UninstalledConverterPackage} from "./types/converter";
+import {InstalledConverterPackage, UninstalledConverterPackage} from "./types/converter";
 
 contextBridge.exposeInMainWorld('electron', {
 	minimizeWindow: () => ipcRenderer.send('minimize-window'),
 	maximizeWindow: () => ipcRenderer.send('maximize-window'),
 	closeWindow: () => ipcRenderer.send('close-window'),
-	
-	testing: () => ipcRenderer.send('testing'),
 	
 	getDownloadableConverterPackages: async () => {
 		return await ipcRenderer.invoke('get-downloadable-converter-packages');
@@ -22,5 +20,9 @@ contextBridge.exposeInMainWorld('electron', {
 	
 	uninstallConverterPackage: async (packageName: UninstalledConverterPackage) => {
 		return await ipcRenderer.invoke('uninstall-converter-package', packageName);
-	}
+	},
+	
+	convertFile: async (inputFile: string, converter: InstalledConverterPackage, extension: string) => {
+		return await ipcRenderer.invoke('convert-file', inputFile, converter, extension);
+	},
 });

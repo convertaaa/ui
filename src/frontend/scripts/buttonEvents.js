@@ -11,7 +11,3 @@ document.getElementById('maximize').addEventListener('click', () => {
 document.getElementById('close').addEventListener('click', () => {
 	window.electron.closeWindow();
 });
-
-document.getElementById("test-btn").addEventListener('click', () => {
-	window.electron.testing();
-});

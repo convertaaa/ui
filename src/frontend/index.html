@@ -37,7 +37,22 @@
     <section id="section-upload">
         <h1>Convert a file or text</h1>
         <div>
-            <button id="test-btn">Trigger Test Event</button>
+            <span>Loaded converter packages: <span id="installed-packages-span"></span></span>
+            <div id="drop-area">
+                <h3>Drag & Drop your files here</h3>
+            </div>
+            <table id="convert-progress-table">
+                <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Status / Choose File Type</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Data gets injected here -->
+                </tbody>
+            </table>
         </div>
     </section>
     <section id="section-converter" style="display:none;">

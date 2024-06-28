@@ -1,7 +1,7 @@
 import {InstalledConverterPackage, UninstalledConverterPackage} from "../types/converter";
 import * as path from "node:path";
 import * as fs from "node:fs";
-import {Converter, ConverterRegister} from "@converta/api";
+import {Converter} from "@converta/api";
 
 export class PackageManagerUtils {
 	static get bundleName(): string {
@@ -41,7 +41,7 @@ export class PackageManagerUtils {
 				
 				const module = require(scriptPath);
 				const {ConverterRegistry} = module.default || module.ConverterRegistry;
-				const registry = new ConverterRegistry() as ConverterRegister;
+				const registry = new ConverterRegistry();
 				const converter = registry.converter;
 				
 				const packageJson: any = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
@@ -50,8 +50,14 @@ export class PackageManagerUtils {
 					author: packageJson.author,
 					description: packageJson.description,
 					version: packageJson.version,
+					scriptPath: scriptPath,
 					packageJsonPath: packageJsonPath,
-					converter: converter as Converter<any, any>[]
+					converter: converter.map((converter: Converter) => {
+						return {
+							allowedExtensions: converter.allowedExtensions,
+							returnableExtension: converter.returnableExtension
+						}
+					})
 				}
 				
 				converterPackages.push(converterPackage);
@@ -166,5 +172,18 @@ export class PackageManagerUtils {
 		
 		fs.rmdirSync(converterPath, {recursive: true});
 		return true;
+	}
+	
+	static async convertFile(filePath: string, converter: InstalledConverterPackage, extension: string): Promise<void> {
+		console.log('Converting file:', filePath, 'with converter:', converter, 'to extension:', extension);
+		
+		const converterModule = require(converter.scriptPath);
+		const {ConverterRegistry} = converterModule.default || converterModule.ConverterRegistry;
+		const registry = new ConverterRegistry();
+		const converterInstance = registry.converter.find((converter: Converter) => {
+			return converter.returnableExtension === extension;
+		});
+		await converterInstance.convert(filePath, `${filePath}.${extension}`);
+		return Promise.resolve();
 	}
 }

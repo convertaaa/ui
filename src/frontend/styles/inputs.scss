@@ -17,4 +17,34 @@ button {
   &:active {
     background-color: $button-color;
   }
+
+  &:disabled {
+    background-color: $border-color;
+    color: lighten($text-color, 20%);
+    cursor: not-allowed;
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+#drop-area {
+  border: 2px dashed $border-color;
+  border-radius: 20px;
+  width: 80%;
+  margin: 50px auto;
+  padding: 3em;
+  text-align: center;
+}
+
+#drop-area.highlight {
+  border-color: $button-color;
+}
+
+input {
+  padding: 0.5em;
+  border-radius: 1em;
+  border: 2px solid $border-color;
+  margin: 0.5em;
 }

@@ -1,12 +1,14 @@
-import {Converter} from "@converta/api";
-
 export type InstalledConverterPackage = {
 	name: string,
 	author: string,
 	description: string,
 	version: string,
+	scriptPath: string,
 	packageJsonPath: string,
-	converter: Converter<any, any>[]
+	converter: {
+		allowedExtensions: string[],
+		returnableExtension: string
+	}[]
 }
 
 export type UninstalledConverterPackage = {

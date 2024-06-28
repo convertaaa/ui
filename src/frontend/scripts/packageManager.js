@@ -4,6 +4,7 @@ let installedConverterPackages = [];
 
 async function setInstalledConverterPackages() {
 	installedConverterPackages = await window.electron.getInstalledConverterPackages();
+	setInstalledConverterPackagesLength();
 }
 
 setInstalledConverterPackages();

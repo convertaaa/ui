@@ -1,0 +1,19 @@
+@import "vars";
+
+table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: $bg-color;
+  color: $text-color;
+  border: 2px solid $border-color;
+  padding: 10px;
+}
+
+td {
+  border: 2px solid $border-color;
+  padding: 10px;
+}

@@ -44,10 +44,6 @@ const createWindow = () => {
 		mainWindow.close();
 	});
 	
-	ipcMain.on('testing', () => {
-		PackageManagerUtils.findAllOnlineConverterPackages().then(r => console.log(r));
-	});
-	
 	ipcMain.handle('get-downloadable-converter-packages', async () => {
 		return await PackageManagerUtils.findNotInstalledConverterPackages(app);
 	});
@@ -62,6 +58,10 @@ const createWindow = () => {
 	
 	ipcMain.handle('uninstall-converter-package', async (event, packageData: InstalledConverterPackage) => {
 		return PackageManagerUtils.uninstallConverterPackage(app, packageData);
+	});
+	
+	ipcMain.handle('convert-file', async (event, filePath: string, converter: InstalledConverterPackage, extension: string) => {
+		return await PackageManagerUtils.convertFile(filePath, converter, extension);
 	});
 };
 
