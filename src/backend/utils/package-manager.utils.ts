@@ -1,8 +1,13 @@
 import {InstalledConverterPackage, UninstalledConverterPackage} from "../types/converter";
 import * as path from "node:path";
 import * as fs from "node:fs";
+import {Converter, ConverterRegister} from "@converta/api";
 
-export class ConverterLoadingUtils {
+export class PackageManagerUtils {
+	static get bundleName(): string {
+		return 'bundle.js';
+	}
+	
 	static findAllLocalConverterPackages(app: Electron.App): InstalledConverterPackage[] {
 		const appDataPath: string = app.getPath('appData');
 		const converterPath: string = path.join(appDataPath, app.getName(), 'converters');
@@ -28,11 +33,16 @@ export class ConverterLoadingUtils {
 				}
 				
 				const packageJsonPath: string = path.join(packageFilePath, 'package.json');
-				const scriptPath: string = path.join(packageFilePath, 'bundle.ts');
+				const scriptPath: string = path.join(packageFilePath, this.bundleName);
 				
 				if (!fs.existsSync(packageJsonPath) || !fs.existsSync(scriptPath)) {
 					return;
 				}
+				
+				const module = require(scriptPath);
+				const {ConverterRegistry} = module.default || module.ConverterRegistry;
+				const registry = new ConverterRegistry() as ConverterRegister;
+				const converter = registry.converter;
 				
 				const packageJson: any = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 				const converterPackage: InstalledConverterPackage = {
@@ -41,7 +51,7 @@ export class ConverterLoadingUtils {
 					description: packageJson.description,
 					version: packageJson.version,
 					packageJsonPath: packageJsonPath,
-					converter: []
+					converter: converter as Converter<any, any>[]
 				}
 				
 				converterPackages.push(converterPackage);
@@ -61,7 +71,7 @@ export class ConverterLoadingUtils {
 			
 			const packagePromises = json.repos.map(async (repo: string) => {
 				const packageJsonUrl: string = `https://raw.githubusercontent.com/${repo}/main/package.json`;
-				const bundleJsUrl: string = `https://raw.githubusercontent.com/${repo}/main/dist/bundle.ts`;
+				const bundleJsUrl: string = `https://raw.githubusercontent.com/${repo}/main/dist/${this.bundleName}`;
 				const packageResponse = await fetch(packageJsonUrl);
 				const packageJson = await packageResponse.json();
 				
@@ -131,7 +141,7 @@ export class ConverterLoadingUtils {
 		
 		fs.mkdirSync(converterPackagePath, {recursive: true});
 		
-		const bundlePath: string = path.join(converterPackagePath, 'bundle.ts');
+		const bundlePath: string = path.join(converterPackagePath, this.bundleName);
 		const packageJsonPath: string = path.join(converterPackagePath, 'package.json');
 		
 		const scriptResponse = await fetch(uninstalledConverterPackage.scriptUrl);

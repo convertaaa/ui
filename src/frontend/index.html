@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Converta UI</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="title-bar">
+    <span class="title">Converta UI</span>
+    <nav>
+        <div class="horizontal-divider-light"></div>
+        <ul>
+            <li class="chip" onclick="openTab('upload')">
+                <div class="tooltip">
+                    📤
+                    <span class="tooltiptext">Start Converting...</span>
+                </div>
+            </li>
+            <li class="chip" onclick="openTab('converter')">
+                🔁 Converter
+            </li>
+            <li class="chip" onclick="openTab('settings')">
+                ⚙️ Settings
+            </li>
+        </ul>
+        <div class="horizontal-divider-light"></div>
+    </nav>
+    <div class="toolbar-btns">
+        <div id="minimize" class="toolbar-btn"></div>
+        <div id="maximize" class="toolbar-btn"></div>
+        <div id="close" class="toolbar-btn"></div>
+    </div>
+</div>
+<div class="wrapper">
+    <section id="section-upload">
+        <h1>Convert a file or text</h1>
+        <div>
+            <button id="test-btn">Trigger Test Event</button>
+        </div>
+    </section>
+    <section id="section-converter" style="display:none;">
+        <h1>Manage Converter</h1>
+        <div>
+            <h2>Installed Converter</h2>
+            <ul id="installed-packages-list" class="packages-list">
+                <!-- Data gets injected here -->
+            </ul>
+            <div class="divider"></div>
+            <h2>Downloadable Converter</h2>
+            <ul id="download-packages-list" class="packages-list">
+                <!-- Data gets injected here -->
+            </ul>
+        </div>
+    </section>
+    <section id="section-settings" style="display:none;">
+        <h1>Settings</h1>
+        <div>
+
+        </div>
+    </section>
+</div>
+<script src="./script.js"></script>
+</body>
+</html>

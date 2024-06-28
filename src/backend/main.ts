@@ -1,6 +1,6 @@
 import {app, BrowserWindow, ipcMain} from 'electron';
 import path = require('path');
-import {ConverterLoadingUtils} from "./utils/converter-loading.utils";
+import {PackageManagerUtils} from "./utils/package-manager.utils";
 import {InstalledConverterPackage, UninstalledConverterPackage} from "./types/converter";
 
 const createWindow = () => {
@@ -45,23 +45,23 @@ const createWindow = () => {
 	});
 	
 	ipcMain.on('testing', () => {
-		ConverterLoadingUtils.findAllOnlineConverterPackages().then(r => console.log(r));
+		PackageManagerUtils.findAllOnlineConverterPackages().then(r => console.log(r));
 	});
 	
 	ipcMain.handle('get-downloadable-converter-packages', async () => {
-		return await ConverterLoadingUtils.findNotInstalledConverterPackages(app);
+		return await PackageManagerUtils.findNotInstalledConverterPackages(app);
 	});
 	
 	ipcMain.handle('get-installed-converter-packages', async (event) => {
-		return ConverterLoadingUtils.findAllLocalConverterPackages(app);
+		return PackageManagerUtils.findAllLocalConverterPackages(app);
 	})
 	
 	ipcMain.handle('download-converter-package', async (event, packageData: UninstalledConverterPackage) => {
-		return ConverterLoadingUtils.downloadConverterPackage(app, packageData);
+		return PackageManagerUtils.downloadConverterPackage(app, packageData);
 	});
 	
 	ipcMain.handle('uninstall-converter-package', async (event, packageData: InstalledConverterPackage) => {
-		return ConverterLoadingUtils.uninstallConverterPackage(app, packageData);
+		return PackageManagerUtils.uninstallConverterPackage(app, packageData);
 	});
 };
 

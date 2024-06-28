@@ -4,6 +4,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -21,7 +23,7 @@ module.exports = function (grunt) {
             main: {
                 files: [
                     {expand: true, cwd: 'src/', src: ['assets/**.**'], dest: 'dist/'},
-                    {expand: true, cwd: 'src/', src: ['index.html'], dest: 'dist/'}
+                    {expand: true, cwd: 'src/frontend', src: ['index.html'], dest: 'dist/'}
                 ]
             }
         },
@@ -32,7 +34,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/styles.css': 'src/styles/styles.scss'
+                    'dist/styles.css': 'src/frontend/styles/styles.scss'
                 }
             }
         },
@@ -44,6 +46,24 @@ module.exports = function (grunt) {
         clean: {
             build: ['dist/']
         },
+        concat: {
+            options: {
+                separator: ';',
+            },
+            dist: {
+                src: 'src/frontend/scripts/*.js',
+                dest: 'dist/script.js',
+            }
+        },
+        uglify: {
+            options: {
+                mangle: false
+            },
+            build: {
+                src: 'dist/script.js',
+                dest: 'dist/script.js',
+            },
+        }
     });
 
     grunt.registerTask('build', 'Builds the application', () => {
@@ -51,6 +71,8 @@ module.exports = function (grunt) {
         grunt.task.run('ts');
         grunt.task.run('copy');
         grunt.task.run('sass');
+        grunt.task.run('concat');
+        grunt.task.run('uglify');
     });
 
     grunt.registerTask('run', 'Runs the application', () => {
